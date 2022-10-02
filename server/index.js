@@ -11,7 +11,7 @@ app.use(
   })
 );
 
-const con = require('./database').databaseConnection;
+const con = require('./config/database').databaseConnection;
 
 // ROUTES ===========================
 // suppliers and consumers
