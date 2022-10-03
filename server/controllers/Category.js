@@ -18,3 +18,14 @@ module.exports.createNewCategory = (req, res) => {
     res.send(result);
   });
 };
+
+module.exports.deleteCategory = (req, res) => {
+  const sql = `
+  DELETE FROM categories
+  WHERE id=?;
+  `;
+  con.query(sql, [req.params.id], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+};

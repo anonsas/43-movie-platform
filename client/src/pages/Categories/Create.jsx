@@ -9,7 +9,7 @@ function Create() {
   const formSubmitHandler = (e) => {
     e.preventDefault();
     setCreateCategory({ title });
-    setTitle('');
+    setTitle('documentary');
   };
 
   return (
