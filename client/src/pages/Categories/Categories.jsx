@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Categories.scss';
 import CategoryContext from '../../contexts/CategoryContext';
 import axios from 'axios';
+import List from './List';
 import Create from './Create';
 
 function Categories() {
@@ -9,20 +10,21 @@ function Categories() {
   const [categoryList, setCategoryList] = useState(null);
   const [createCategory, setCreateCategory] = useState(null);
 
+  const [deleteCategoryModal, setDeleteCategoryModal] = useState(null);
+
   useEffect(() => {
-    if (categoryList === null) return;
-    // axios
-    //   .get('http://localhost:4000/categories')
-    //   .then((response) => {
-    //     setCategoryList(response.data);
-    //   })
-    //   .catch((error) => alert(error.message));
-  }, [categoryList, lastUpdate]);
+    axios
+      .get('http://localhost:4000/categories')
+      .then((response) => {
+        setCategoryList(response.data);
+      })
+      .catch((error) => alert(error.message));
+  }, [lastUpdate]);
 
   useEffect(() => {
     if (createCategory === null) return;
     axios
-      .post('http://localhost:4000/categories')
+      .post('http://localhost:4000/categories', createCategory)
       .then((response) => {
         setCreateCategory(null);
         setLastUpdate(Date.now());
@@ -31,8 +33,9 @@ function Categories() {
   }, [createCategory]);
 
   return (
-    <CategoryContext.Provider value={{ setCreateCategory }}>
+    <CategoryContext.Provider value={{ categoryList, setCreateCategory }}>
       <Create />
+      <List />
     </CategoryContext.Provider>
   );
 }

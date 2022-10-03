@@ -8,9 +8,7 @@ function Create() {
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
-    if (!title) return alert('Please fill in the blanks');
-
-    setCreateCategory(title);
+    setCreateCategory({ title });
     setTitle('');
   };
 

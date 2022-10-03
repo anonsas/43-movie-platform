@@ -11,7 +11,7 @@ app.use(
   })
 );
 
-const con = require('./config/database').databaseConnection;
+// const con = require('./config/database').databaseConnection;
 
 // ROUTES ===========================
 // suppliers and consumers
@@ -29,8 +29,8 @@ const con = require('./config/database').databaseConnection;
 // });
 
 // IMPORTED ROUTES ==================
-// const SuppliersRoutes = require('./routes/Suppliers');
-// app.use('/suppliers', SuppliersRoutes);
+const CategoryRoutes = require('./routes/Category');
+app.use('/categories', CategoryRoutes);
 
 // const ConsumersRoutes = require('./routes/Consumers');
 // app.use('/consumers', ConsumersRoutes);
