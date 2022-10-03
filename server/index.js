@@ -32,6 +32,9 @@ app.use(
 const CategoryRoutes = require('./routes/Category');
 app.use('/categories', CategoryRoutes);
 
+const MovieRoutes = require('./routes/Movie');
+app.use('/movies', MovieRoutes);
+
 // const ConsumersRoutes = require('./routes/Consumers');
 // app.use('/consumers', ConsumersRoutes);
 

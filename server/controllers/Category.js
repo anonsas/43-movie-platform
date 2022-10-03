@@ -1,6 +1,6 @@
 const con = require('../config/database').databaseConnection;
 
-module.exports.getAllCategories = (req, res) => {
+module.exports.getCategories = (req, res) => {
   const sql = `SELECT * FROM categories`;
   con.query(sql, (err, result) => {
     if (err) throw err;
@@ -8,7 +8,7 @@ module.exports.getAllCategories = (req, res) => {
   });
 };
 
-module.exports.createNewCategory = (req, res) => {
+module.exports.createCategory = (req, res) => {
   const sql = `
   INSERT INTO categories (title)
   VALUES (?);
