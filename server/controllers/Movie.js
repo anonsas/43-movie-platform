@@ -12,13 +12,17 @@ module.exports.getMovies = (req, res) => {
 
 module.exports.createMovie = (req, res) => {
   const sql = `
-  INSERT INTO movies (title, price, category_id)
-  VALUES (?, ?, ?);
+  INSERT INTO movies (title, price, category_id, image)
+  VALUES (?, ?, ?, ?);
   `;
-  con.query(sql, [req.body.title, req.body.price, req.body.categoryID], (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
+  con.query(
+    sql,
+    [req.body.title, req.body.price, req.body.categoryID, req.body.image],
+    (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
 };
 
 module.exports.editMovie = (req, res) => {

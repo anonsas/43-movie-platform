@@ -1,3 +1,21 @@
+.form {
+  padding: 2rem;
+  display: flex;
+  column-gap: 2rem;
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 1rem;
+  }
+
+  &__image {
+    height: 30rem;
+    width: auto;
+  }
+}
+
 .line {
   &__content,
   &__actions {
