@@ -45,7 +45,7 @@ function Edit() {
 
   return (
     <div className="overlay">
-      <form className="modal"></form>
+      <form className="modal">
         <h2>Edit Movie:</h2>
         <div className="modal__question">
           {image ? (

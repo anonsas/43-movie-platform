@@ -16,11 +16,33 @@
   }
 }
 
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
 .line {
-  &__content,
-  &__actions {
+  padding: 1rem;
+  border: 2px solid orangered;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__content {
+    width: 100%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    row-gap: 1rem;
+  }
+  &__actions {
+    margin-top: 1rem;
+    display: flex;
     column-gap: 2rem;
+  }
+
+  &__image {
+    height: 10rem;
   }
 }

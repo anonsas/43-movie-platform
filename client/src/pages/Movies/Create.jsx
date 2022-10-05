@@ -13,7 +13,6 @@ function Create() {
   const fileInput = useRef();
 
   const photoHandler = () => {
-    console.log(fileInput.current.value);
     getBase64(fileInput.current.files[0])
       .then((photo) => setImage(photo))
       .catch((error) => alert(error.message));
