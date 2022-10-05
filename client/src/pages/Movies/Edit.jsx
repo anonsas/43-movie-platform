@@ -20,7 +20,6 @@ function Edit() {
     });
     setEditMovieModal(null);
   };
-  console.log(editMovieModal);
 
   useEffect(() => {
     if (editMovieModal === null) return;

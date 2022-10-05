@@ -52,7 +52,6 @@ function Movies() {
   }, [createMovie]);
 
   useEffect(() => {
-    console.log(editMovie);
     if (editMovie === null) return;
     axios
       .put(`http://localhost:4000/movies/${editMovie.id}`, editMovie)

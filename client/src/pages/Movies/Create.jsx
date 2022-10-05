@@ -1,5 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import MovieContext from '../../contexts/MovieContext';
+import getBase64 from '../../utils/getBase64';
 
 function Create() {
   const { setCreateMovie, categoryList } = useContext(MovieContext);
@@ -7,11 +8,26 @@ function Create() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [categoryID, setCategoryID] = useState(0);
+  const [photo, setPhoto] = useState(null);
+
+  const fileInput = useRef();
+
+  const photoHandler = () => {
+    getBase64(fileInput.current.files[0])
+      .then((photo) => setPhoto(photo))
+      .catch((error) => alert(error.message));
+  };
 
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (!title || !price || !categoryID) return alert('Please fill the blanks!');
-    setCreateMovie({ title, price: parseFloat(price), categoryID: parseInt(categoryID) });
+
+    setCreateMovie({
+      title,
+      price: parseFloat(price),
+      categoryID: parseInt(categoryID),
+      photo,
+    });
 
     setTitle('');
     setPrice('');
@@ -30,6 +46,11 @@ function Create() {
         <div>
           <label htmlFor="category">Movie price:</label>
           <input type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
+        </div>
+
+        <div>
+          <label>Photo</label>
+          <input ref={fileInput} type="file" onChange={photoHandler} />
         </div>
 
         <div>
