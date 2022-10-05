@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import MovieContext from '../../contexts/MovieContext';
+import getBase64 from '../../utils/getBase64';
+import NoImage from '../../assets/NoImage.jpeg';
 
 function Edit() {
   const { editMovieModal, setEditMovieModal, setEditMovie, categoryList } =
@@ -8,6 +10,15 @@ function Edit() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
   const [categoryID, setCategoryID] = useState(0);
+  const [image, setImage] = useState('');
+
+  const fileInput = useRef();
+
+  const photoHandler = () => {
+    getBase64(fileInput.current.files[0])
+      .then((photo) => setImage(photo))
+      .catch((error) => alert(error.message));
+  };
 
   const editModalSubmitHandler = (e) => {
     e.preventDefault();
@@ -16,6 +27,7 @@ function Edit() {
       title,
       price: parseFloat(price),
       categoryID: parseInt(categoryID),
+      image,
       id: editMovieModal.id,
     });
     setEditMovieModal(null);
@@ -26,14 +38,27 @@ function Edit() {
     setTitle(editMovieModal.title);
     setPrice(editMovieModal.price);
     setCategoryID(editMovieModal.category_id);
+    setImage(editMovieModal.image);
   }, [editMovieModal]);
 
   if (editMovieModal === null) return;
 
   return (
     <div className="overlay">
-      <form className="modal">
+      <form className="modal"></form>
         <h2>Edit Movie:</h2>
+        <div className="modal__question">
+          {image ? (
+            <img src={image} alt={title} className="line__image" />
+          ) : (
+            <img src={NoImage} alt={title} className="line__image" />
+          )}
+        </div>
+
+        <div className="modal__question">
+          <label>Photo</label>
+          <input ref={fileInput} type="file" onChange={photoHandler} />
+        </div>
         <div className="modal__question">
           <label htmlFor="category">Movie title:</label>
           <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
