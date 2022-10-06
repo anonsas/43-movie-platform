@@ -11,6 +11,7 @@ function Edit() {
   const [price, setPrice] = useState('');
   const [categoryID, setCategoryID] = useState(0);
   const [image, setImage] = useState('');
+  const [deleteImageEdit, setDeleteImageEdit] = useState(false);
 
   const fileInput = useRef();
 
@@ -29,7 +30,10 @@ function Edit() {
       categoryID: parseInt(categoryID),
       image,
       id: editMovieModal.id,
+      deleteImage: deleteImageEdit ? 1 : 0,
     });
+
+    setDeleteImageEdit(false);
     setEditMovieModal(null);
   };
 
@@ -49,7 +53,22 @@ function Edit() {
         <h2>Edit Movie:</h2>
         <div className="modal__question">
           {image ? (
-            <img src={image} alt={title} className="line__image" />
+            <div className="modal__image-container">
+              <img
+                src={image}
+                alt={title}
+                className={`line__image ${deleteImageEdit ? 'line__image--hide' : null}`}
+              />
+              <div>
+                <label htmlFor="editImage">Delete Image</label>
+                <input
+                  type="checkbox"
+                  name="editImage"
+                  checked={deleteImageEdit}
+                  onChange={() => setDeleteImageEdit((prevState) => !prevState)}
+                />
+              </div>
+            </div>
           ) : (
             <img src={NoImage} alt={title} className="line__image" />
           )}

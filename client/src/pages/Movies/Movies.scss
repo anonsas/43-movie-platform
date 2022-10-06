@@ -16,6 +16,13 @@
   }
 }
 
+.modal__image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 4rem;
+}
+
 .list {
   display: flex;
   flex-wrap: wrap;
@@ -44,5 +51,9 @@
 
   &__image {
     height: 10rem;
+
+    &--hide {
+      display: none;
+    }
   }
 }
