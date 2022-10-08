@@ -1,10 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import HomeContext from '../../contexts/HomeContext';
 import NoImage from '../../assets/NoImage.jpeg';
 
 function Line({ movie }) {
-  const { setEditMovieModal, setDeleteMovieModal, categoryList } =
-    useContext(HomeContext);
+  const { setRatingData } = useContext(HomeContext);
+
+  const [rating, setRating] = useState(1);
+
+  const movieRatingHandler = () => {
+    setRatingData({
+      movieID: movie.id,
+      rating,
+    });
+
+    setRating(1);
+  };
 
   return (
     <div className="line">
@@ -16,20 +26,18 @@ function Line({ movie }) {
         )}
         <p>Title: {movie.title}</p>
         <p>Price: {movie.price} &euro;</p>
-        <p>Rating: {movie.rating ?? 'No Rating'}</p>
         <p>
-          Category:
-          {categoryList.find((category) => category.id === movie.category_id).title}
+          Category: <b>{movie.categoryTitle}</b>
         </p>
-      </div>
-
-      <div className="line__actions">
-        <button type="button" onClick={() => setEditMovieModal(movie)}>
-          Edit
-        </button>
-        <button type="button" onClick={() => setDeleteMovieModal(movie)}>
-          Delete
-        </button>
+        <p>Rating: {movie.rating ?? 'No Rating'}</p>
+        <select name="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
+          {[...Array(10)].map((_, i) => (
+            <option key={i} value={i + 1}>
+              {i + 1}
+            </option>
+          ))}
+        </select>
+        <button onClick={movieRatingHandler}>Rate</button>
       </div>
     </div>
   );
