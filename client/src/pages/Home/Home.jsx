@@ -3,6 +3,7 @@ import HomeContext from '../../contexts/HomeContext';
 import './Home.scss';
 import List from './List';
 import CategoryFilter from './CategoryFilter';
+import MovieSort from './MovieSort';
 import axios from 'axios';
 
 function Home() {
@@ -17,7 +18,7 @@ function Home() {
     axios
       .get('http://localhost:4000/')
       .then((response) => {
-        setMovieList(response.data);
+        setMovieList(response.data.map((movie) => ({ ...movie, row: movie.id })));
       })
       .catch((error) => alert(error.message));
   }, [lastUpdate]);
@@ -34,9 +35,16 @@ function Home() {
 
   return (
     <HomeContext.Provider
-      value={{ movieList, setRatingData, selectedCategory, setSelectedCategory }}
+      value={{
+        movieList,
+        setMovieList,
+        setRatingData,
+        selectedCategory,
+        setSelectedCategory,
+      }}
     >
       <CategoryFilter />
+      <MovieSort />
       <List />
     </HomeContext.Provider>
   );
