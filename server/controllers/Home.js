@@ -15,42 +15,14 @@ module.exports.getMoviesWithCategories = (req, res) => {
 };
 
 module.exports.editMovieRating = (req, res) => {
-  let sql;
-  let request;
-
-  if (req.body.deleteImage) {
-    // Remove image
-    sql = `
+  const sql = `
     UPDATE movies
-    SET title=?, price=?, category_id=?, image=NULL
+    SET rating_sum = rating_sum + ?, 
+        rating_count = rating_count + 1, 
+        rating = rating_sum / rating_count
     WHERE id=?
     `;
-    request = [req.body.title, req.body.price, req.body.categoryID, req.params.id];
-  } else if (req.body.image) {
-    // Adding new image
-    sql = `
-    UPDATE movies
-    SET title=?, price=?, category_id=?, image=?
-    WHERE id=?
-    `;
-    request = [
-      req.body.title,
-      req.body.price,
-      req.body.categoryID,
-      req.body.image,
-      req.params.id,
-    ];
-  } else {
-    // Leave the Image as it is
-    sql = `
-    UPDATE movies
-    SET title=?, price=?, category_id=?
-    WHERE id=?
-    `;
-    request = [req.body.title, req.body.price, req.body.categoryID, req.params.id];
-  }
-
-  con.query(sql, request, (err, result) => {
+  con.query(sql, [req.body.rating, req.params.id], (err, result) => {
     if (err) throw err;
     res.send(result);
   });

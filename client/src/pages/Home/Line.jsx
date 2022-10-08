@@ -9,7 +9,7 @@ function Line({ movie }) {
 
   const movieRatingHandler = () => {
     setRatingData({
-      movieID: movie.id,
+      id: movie.id,
       rating,
     });
 

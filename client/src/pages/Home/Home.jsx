@@ -23,7 +23,7 @@ function Home() {
   useEffect(() => {
     if (ratingData === null) return;
     axios
-      .put(`http://localhost:4000/movies/${ratingData.movieID}`, ratingData)
+      .put(`http://localhost:4000/${ratingData.id}`, ratingData)
       .then((response) => {
         setLastUpdate(Date.now());
       })
