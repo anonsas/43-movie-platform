@@ -3,7 +3,6 @@ import HomeContext from '../../contexts/HomeContext';
 import './Home.scss';
 import List from './List';
 import CategoryFilter from './CategoryFilter';
-import MovieSort from './MovieSort';
 import axios from 'axios';
 
 function Home() {
@@ -44,7 +43,6 @@ function Home() {
       }}
     >
       <CategoryFilter />
-      <MovieSort />
       <List />
     </HomeContext.Provider>
   );

@@ -5,6 +5,7 @@ import axios from 'axios';
 import List from './List';
 import Create from './Create';
 import Delete from './Delete';
+import { authConfig } from '../../utils/auth';
 
 function Categories() {
   const [lastUpdate, setLastUpdate] = useState(Date.now());
@@ -16,7 +17,7 @@ function Categories() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/categories')
+      .get('http://localhost:4000/categories', authConfig())
       .then((response) => {
         setCategoryList(response.data);
       })
@@ -26,7 +27,7 @@ function Categories() {
   useEffect(() => {
     if (createCategory === null) return;
     axios
-      .post('http://localhost:4000/categories', createCategory)
+      .post('http://localhost:4000/categories', createCategory, authConfig())
       .then((response) => {
         setCreateCategory(null);
         setLastUpdate(Date.now());
@@ -37,7 +38,7 @@ function Categories() {
   useEffect(() => {
     if (deleteCategory === null) return;
     axios
-      .delete(`http://localhost:4000/categories/${deleteCategory.id}`)
+      .delete(`http://localhost:4000/categories/${deleteCategory.id}`, authConfig())
       .then((response) => {
         setDeleteCategory(null);
         setLastUpdate(Date.now());

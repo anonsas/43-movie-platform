@@ -5,6 +5,7 @@ import Line from './Line';
 function List() {
   const { movieList, setMovieList, selectedCategory } = useContext(HomeContext);
 
+  const [totalMovies, setTotalMovies] = useState(null);
   const [sortMovieBy, setSortMovieBy] = useState(null);
 
   const sortMovieData = [
@@ -31,6 +32,11 @@ function List() {
   ];
 
   useEffect(() => {
+    if (movieList === null) return;
+    setTotalMovies(movieList.length);
+  }, [movieList]);
+
+  useEffect(() => {
     if (sortMovieBy === null) return;
 
     switch (sortMovieBy) {
@@ -51,10 +57,9 @@ function List() {
     }
   }, [sortMovieBy, setMovieList]);
 
-  const sortMoviesHandler = () => {};
-
   return (
     <div>
+      <h3>On this platform we have {totalMovies} movies.</h3>
       <h3>List of categories:</h3>
       <div>
         <label htmlFor="sort">Sort By:</label>
